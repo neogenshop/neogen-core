@@ -1,23 +1,9 @@
 {
-  "a3f1c9d7e6b0a8f9c6c2e1b4d9f7": {
-    "type": "weekly",
-    "expires": 1736985600,
-    "status": "active"
-  },
-  "9b7e2a4f8d1c3e6a5f9b2d7e4c1a": {
-    "type": "monthly",
-    "expires": 1740000000,
-    "status": "active"
-  },
-  "ffffffffffffffffffffffffffffffff": {
-    "type": "lifetime",
-    "expires": 9999999999,
-    "status": "active"
-  },
   {
   "fd03f43afafd2e3a37226366868b27eee826a769aee99f13899cf86b0e3115c8": {
     "type": "lifetime",
     "expires": 9999999999,
-    "status": "active"
+    "status": "active",
+    "hwid": ""
   }
 }
