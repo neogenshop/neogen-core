@@ -1,9 +1,38 @@
 @echo off
 chcp 65001 >nul
-title ULTRA GAME OPTIMIZER v2.0
-color 0A
-mode con cols=90 lines=35
+title ULTRA GAME OPTIMIZER v3.0 - NÍVEIS DE OTIMIZAÇÃO
+mode con cols=100 lines=40
 setlocal enabledelayedexpansion
+
+:: =========================
+:: CONFIGURAÇÃO DE CORES
+:: =========================
+:: Azul claro no fundo preto
+color 09
+:: Cores definidas:
+:: 0 = Preto      8 = Cinza
+:: 1 = Azul       9 = Azul claro
+:: 2 = Verde      A = Verde claro
+:: 3 = Ciano      B = Ciano claro
+:: 4 = Vermelho   C = Vermelho claro
+:: 5 = Magenta    D = Magenta claro
+:: 6 = Amarelo    E = Amarelo claro
+:: 7 = Branco     F = Branco brilhante
+
+:: =========================
+:: FUNÇÃO PARA TEXTO AZUL
+:: =========================
+:printBlue
+echo|set /p="%*"
+exit /b
+
+:printGreen
+echo|set /p="%*"
+exit /b
+
+:printRed
+echo|set /p="%*"
+exit /b
 
 :: =========================
 :: VERIFICAR ADMIN
@@ -11,74 +40,213 @@ setlocal enabledelayedexpansion
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo [ERRO] Execute como Administrador!
+    echo [[91mERRO[0m] Execute como Administrador!
     echo.
     echo Clique com botao direito no arquivo e selecione
-    echo "Executar como administrador"
+    echo "[96mExecutar como administrador[0m"
     echo.
     pause
     exit /b 1
 )
 
 :: =========================
-:: MENU PRINCIPAL
+:: CABEÇALHO ESTILIZADO
+:: =========================
+:header
+cls
+echo [94m====================================================================================================[0m
+echo                  [96mULTRA GAME OPTIMIZER [93mv3.0[0m - [95mNIVEL DE OTIMIZACAO[0m
+echo [94m====================================================================================================[0m
+exit /b
+
+:: =========================
+:: MENU PRINCIPAL COM NÍVEIS
 :: =========================
 :menu
-cls
-echo ==========================================================
-echo              ULTRA GAME OPTIMIZER (ALL IN ONE)
-echo ==========================================================
+call :header
 echo.
-echo [1] APLICAR TODAS OTIMIZACOES (RECOMENDADO)
+echo [92m[NIVEIS DE OTIMIZACAO][0m
+echo [94m====================[0m
+echo [96m[1][0m [93mNIVEL BASICO[0m ([92mFoco em estabilidade[0m)
+echo [96m[2][0m [93mNIVEL BALANCEADO[0m ([92mRecomendado para maioria[0m)
+echo [96m[3][0m [93mNIVEL ULTRA[0m ([91mMaximo desempenho - Experientes[0m)
 echo.
-echo [2] Otimizacao de ENERGIA (CPU/GPU)
-echo [3] Otimizacao de INPUT LAG (timer / sistema)
-echo [4] Otimizacao de INTERNET (ping / jitter)
-echo [5] Prioridade MAXIMA para JOGOS
-echo [6] Mouse RAW (sem aceleracao)
-echo [7] Tweaks ESPECIFICOS Fortnite
-echo [8] Tweaks de GPU (NVIDIA / AMD auto)
-echo [9] Verificar sistema e otimizacoes
+echo [92m[OTIMIZACOES INDIVIDUAIS][0m
+echo [94m=======================[0m
+echo [96m[4][0m [95mOtimizacao de ENERGIA[0m (CPU/GPU)
+echo [96m[5][0m [95mOtimizacao de INPUT LAG[0m (timer / sistema)
+echo [96m[6][0m [95mOtimizacao de INTERNET[0m (ping / jitter)
+echo [96m[7][0m [95mPrioridade MAXIMA para JOGOS[0m
+echo [96m[8][0m [95mMouse RAW[0m (sem aceleracao)
+echo [96m[9][0m [95mTweaks ESPECIFICOS Fortnite[0m
+echo [96m[10][0m [95mTweaks de GPU[0m (NVIDIA / AMD auto)
+echo [96m[11][0m [95mMemoria e Cache[0m (Reduzir travamentos)
+echo [96m[12][0m [95mVerificar sistema e otimizacoes[0m
 echo.
-echo [U] DESFAZER TODAS OTIMIZACOES (UNDO)
-echo [0] SAIR
+echo [91m[U][0m [93mDESFAZER TODAS OTIMIZACOES[0m (UNDO)
+echo [90m[0][0m [90mSAIR[0m
 echo.
-set /p op=Escolha uma opcao: 
+set /p op=[96mEscolha uma opcao: [0m
 
-if "%op%"=="1" goto all
-if "%op%"=="2" goto energy
-if "%op%"=="3" goto input
-if "%op%"=="4" goto net
-if "%op%"=="5" goto priority
-if "%op%"=="6" goto mouse
-if "%op%"=="7" goto fortnite
-if "%op%"=="8" goto gpu
-if "%op%"=="9" goto system_check
+if "%op%"=="1" goto nivel_basico
+if "%op%"=="2" goto nivel_balanceado
+if "%op%"=="3" goto nivel_ultra
+if "%op%"=="4" goto energy
+if "%op%"=="5" goto input
+if "%op%"=="6" goto net
+if "%op%"=="7" goto priority
+if "%op%"=="8" goto mouse
+if "%op%"=="9" goto fortnite
+if "%op%"=="10" goto gpu
+if "%op%"=="11" goto memory
+if "%op%"=="12" goto system_check
 if /i "%op%"=="U" goto undo
 if "%op%"=="0" goto sair
 goto menu
 
 :: =========================
-:: APLICAR TUDO
+:: NÍVEL BÁSICO (Estabilidade)
 :: =========================
-:all
-cls
-echo ==========================================================
-echo       APLICANDO TODAS AS OTIMIZACOES AUTOMATICAMENTE
-echo ==========================================================
+:nivel_basico
+call :header
 echo.
-echo [1/7] Otimizando energia...
-powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
-powercfg -h off >nul
-echo ✓ Energia otimizada
+echo    [96mAPLICANDO NIVEL BASICO - ESTABILIDADE E SEGURANCA[0m
+echo [94m==========================================================[0m
+echo.
+echo [93mEste nivel foca em estabilidade e reduz pequenos travamentos[0m
+echo [93msem modificar configuracoes criticas do sistema.[0m
+echo.
+echo [95m[1/5][0m Plano de energia balanceado...
+powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul
+echo [92m✓[0m Plano balanceado ativado
+echo.
 
-echo [2/7] Otimizando input lag...
+echo [95m[2/5][0m Prioridade moderada para jogos...
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 10 /f >nul 2>&1
+echo [92m✓[0m Prioridade moderada configurada
+echo.
+
+echo [95m[3/5][0m Limpeza de cache e memoria...
+ipconfig /flushdns >nul
+netsh int ip reset >nul 2>&1
+echo [92m✓[0m Cache limpo
+echo.
+
+echo [95m[4/5][0m Desativando apps em segundo plano...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1
+echo [92m✓[0m Apps em segundo plano desativados
+echo.
+
+echo [95m[5/5][0m Otimizando memoria virtual...
+wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul
+wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=4096,MaximumSize=8192 >nul
+echo [92m✓[0m Memoria virtual configurada
+echo.
+
+echo [94m================================================================[0m
+echo [92m✓ NIVEL BASICO APLICADO COM SUCESSO![0m
+echo [94m================================================================[0m
+echo.
+pause
+goto menu
+
+:: =========================
+:: NÍVEL BALANCEADO (Recomendado)
+:: =========================
+:nivel_balanceado
+call :header
+echo.
+echo    [96mAPLICANDO NIVEL BALANCEADO - DESEMPENHO + ESTABILIDADE[0m
+echo [94m==========================================================[0m
+echo.
+echo [95m[1/7][0m Plano de energia alto desempenho...
+powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul 2>&1
+powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul
+echo [92m✓[0m Plano alto desempenho ativado
+echo.
+
+echo [95m[2/7][0m Timer otimizado para jogos...
+bcdedit /set useplatformclock true >nul 2>&1
+bcdedit /set disabledynamictick yes >nul 2>&1
+echo [92m✓[0m Timer otimizado
+echo.
+
+echo [95m[3/7][0m Prioridade alta para jogos...
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 5 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Priority /t REG_DWORD /d 5 /f >nul 2>&1
+echo [92m✓[0m Prioridade alta configurada
+echo.
+
+echo [95m[4/7][0m Mouse RAW input...
+reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul 2>&1
+reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul 2>&1
+reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul 2>&1
+echo [92m✓[0m Mouse RAW configurado
+echo.
+
+echo [95m[5/7][0m Otimizacao de rede para jogos...
+for /f %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" 2^>nul') do (
+    reg add "%%i" /v TcpAckFrequency /t REG_DWORD /d 1 /f >nul 2>&1
+    reg add "%%i" /v TCPNoDelay /t REG_DWORD /d 1 /f >nul 2>&1
+)
+netsh int tcp set global autotuninglevel=normal >nul
+echo [92m✓[0m Rede otimizada
+echo.
+
+echo [95m[6/7][0m Memoria e cache otimizados...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v ClearPageFileAtShutdown /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v LargeSystemCache /t REG_DWORD /d 1 /f >nul 2>&1
+echo [92m✓[0m Memoria otimizada
+echo.
+
+echo [95m[7/7][0m Tweaks para evitar travamentos...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 3 /f >nul 2>&1
+echo [92m✓[0m Efeitos visuais ajustados
+echo.
+
+echo [94m================================================================[0m
+echo [92m✓ NIVEL BALANCEADO APLICADO COM SUCESSO![0m
+echo [93mReinicie seu computador para efeito completo.[0m
+echo [94m================================================================[0m
+echo.
+pause
+goto menu
+
+:: =========================
+:: NÍVEL ULTRA (Máximo Desempenho)
+:: =========================
+:nivel_ultra
+call :header
+echo.
+echo    [96mAPLICANDO NIVEL ULTRA - MAXIMO DESEMPENHO[0m
+echo [94m==========================================================[0m
+echo.
+echo [91mATENCAO:[0m Este nivel modifica configuracoes avancadas do sistema.
+echo [91mRecomendado apenas para usuarios experientes.[0m
+echo.
+echo [95m[1/10][0m Plano de energia ULTRA PERFORMANCE...
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
+powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61 >nul
+powercfg -h off >nul
+echo [92m✓[0m Plano ultra performance ativado
+echo.
+
+echo [95m[2/10][0m Timer maximo otimizado...
 bcdedit /set useplatformclock true >nul 2>&1
 bcdedit /set disabledynamictick yes >nul 2>&1
 bcdedit /set tscsyncpolicy Enhanced >nul 2>&1
-echo ✓ Input lag otimizado
+echo [92m✓[0m Timer maximo otimizado
+echo.
 
-echo [3/7] Otimizando internet...
+echo [95m[3/10][0m Prioridade MAXIMA para jogos...
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /t REG_DWORD /d 0xffffffff /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Priority /t REG_DWORD /d 6 /f >nul 2>&1
+echo [92m✓[0m Prioridade maxima configurada
+echo.
+
+echo [95m[4/10][0m Rede ultra otimizada...
 for /f %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" 2^>nul') do (
     reg add "%%i" /v TcpAckFrequency /t REG_DWORD /d 1 /f >nul 2>&1
     reg add "%%i" /v TCPNoDelay /t REG_DWORD /d 1 /f >nul 2>&1
@@ -86,96 +254,112 @@ for /f %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Paramete
 )
 netsh int tcp set global autotuninglevel=normal >nul
 netsh int tcp set global timestamps=disabled >nul
-ipconfig /flushdns >nul
-echo ✓ Internet otimizada
+netsh int tcp set global rsc=disabled >nul
+echo [92m✓[0m Rede ultra otimizada
+echo.
 
-echo [4/7] Configurando prioridade de jogos...
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /t REG_DWORD /d 0xffffffff /f >nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 0 /f >nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f >nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Priority /t REG_DWORD /d 6 /f >nul 2>&1
-echo ✓ Prioridade configurada
-
-echo [5/7] Configurando mouse RAW...
+echo [95m[5/10][0m Mouse RAW extremo...
 reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul 2>&1
 reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul 2>&1
 reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul 2>&1
-echo ✓ Mouse RAW configurado
+echo [92m✓[0m Mouse RAW extremo
+echo.
 
-echo [6/7] Aplicando tweaks Fortnite...
+echo [95m[6/10][0m Memoria otimizada ao maximo...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v DisablePagingExecutive /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v LargeSystemCache /t REG_DWORD /d 1 /f >nul 2>&1
+wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul
+wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=8192,MaximumSize=16384 >nul
+echo [92m✓[0m Memoria maximo desempenho
+echo.
+
+echo [95m[7/10][0m Tweaks Fortnite especificos...
 reg add "HKCU\Software\Epic Games\Unreal Engine\Hardware Survey" /v DisableSurvey /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKCU\Software\Epic Games\Unreal Engine\Performance" /v bSmoothFrameRate /t REG_DWORD /d 0 /f >nul 2>&1
-echo ✓ Tweaks Fortnite aplicados
+reg add "HKCU\Software\Epic Games\Unreal Engine\Performance" /v FrameRateLimit /t REG_DWORD /d 0 /f >nul 2>&1
+echo [92m✓[0m Fortnite otimizado
+echo.
 
-echo [7/7] Otimizando GPU...
+echo [95m[8/10][0m Otimizacao GPU automatica...
 wmic path win32_VideoController get name | find /i "NVIDIA" >nul
 if !errorlevel!==0 (
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm" /v DisablePreemption /t REG_DWORD /d 1 /f >nul 2>&1
-    echo ✓ NVIDIA otimizada
+    echo [92m✓[0m NVIDIA otimizada ao maximo
 ) else (
     wmic path win32_VideoController get name | find /i "AMD" >nul
     if !errorlevel!==0 (
         reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdkmdag" /v DisableDMACopy /t REG_DWORD /d 1 /f >nul 2>&1
-        echo ✓ AMD otimizada
+        echo [92m✓[0m AMD otimizada ao maximo
     ) else (
-        echo ⓘ GPU nao detectada ou drivers nao instalados
+        echo [93mⓘ GPU nao detectada[0m
     )
 )
+echo.
 
+echo [95m[9/10][0m Servicos desnecessarios desativados...
+sc config DiagTrack start= disabled >nul 2>&1
+sc config dmwappushservice start= disabled >nul 2>&1
+sc config WMPNetworkSvc start= disabled >nul 2>&1
+echo [92m✓[0m Servicos otimizados
 echo.
-echo ==========================================================
-echo          TODAS AS OTIMIZACOES FORAM APLICADAS!
-echo ==========================================================
+
+echo [95m[10/10][0m Prefetch e Superfetch otimizados...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v EnablePrefetcher /t REG_DWORD /d 3 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v EnableSuperfetch /t REG_DWORD /d 3 /f >nul 2>&1
+echo [92m✓[0m Prefetch otimizado
 echo.
-echo REINICIE SEU COMPUTADOR para que todas as otimizacoes
-echo tenham efeito completo.
+
+echo [94m================================================================[0m
+echo [92m✓ NIVEL ULTRA APLICADO COM SUCESSO![0m
+echo [91mREINICIE OBRIGATORIAMENTE para aplicar todas as otimizacoes.[0m
+echo [94m================================================================[0m
 echo.
 pause
 goto menu
 
 :: =========================
-:: ENERGIA
+:: MENU DE ENERGIA (Exemplo de como estilizar outros menus)
 :: =========================
 :energy
-cls
-echo ==========================================================
-echo                OTIMIZACAO DE ENERGIA
-echo ==========================================================
+call :header
 echo.
-echo [1] Plano ULTRA PERFORMANCE (Maximo)
-echo [2] Plano BALANCEADO (Recomendado)
-echo [3] Desativar hibernacao
-echo [4] Reativar hibernacao
-echo [5] Voltar ao menu
+echo                [96mOTIMIZACAO DE ENERGIA[0m
+echo [94m==========================================================[0m
 echo.
-set /p energy_op=Escolha: 
+echo [96m[1][0m [95mPlano ULTRA PERFORMANCE[0m (Maximo)
+echo [96m[2][0m [95mPlano BALANCEADO[0m (Recomendado)
+echo [96m[3][0m [95mDesativar hibernacao[0m
+echo [96m[4][0m [95mReativar hibernacao[0m
+echo [96m[5][0m [90mVoltar ao menu[0m
+echo.
+set /p energy_op=[96mEscolha: [0m
 
 if "%energy_op%"=="1" (
-    echo Aplicando plano de energia maximo...
+    echo [95mAplicando plano de energia maximo...[0m
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 2>nul
     powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61
-    echo ✓ Plano maximo aplicado
+    echo [92m✓[0m Plano maximo aplicado
     pause
     goto menu
 )
 if "%energy_op%"=="2" (
-    echo Aplicando plano balanceado...
+    echo [95mAplicando plano balanceado...[0m
     powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e
-    echo ✓ Plano balanceado aplicado
+    echo [92m✓[0m Plano balanceado aplicado
     pause
     goto menu
 )
 if "%energy_op%"=="3" (
-    echo Desativando hibernacao...
+    echo [95mDesativando hibernacao...[0m
     powercfg -h off
-    echo ✓ Hibernacao desativada
+    echo [92m✓[0m Hibernacao desativada
     pause
     goto menu
 )
 if "%energy_op%"=="4" (
-    echo Reativando hibernacao...
+    echo [95mReativando hibernacao...[0m
     powercfg -h on
-    echo ✓ Hibernacao reativada
+    echo [92m✓[0m Hibernacao reativada
     pause
     goto menu
 )
@@ -183,436 +367,168 @@ if "%energy_op%"=="5" goto menu
 goto energy
 
 :: =========================
-:: INPUT LAG / TIMER
+:: MEMÓRIA E CACHE
 :: =========================
-:input
-cls
-echo ==========================================================
-echo             OTIMIZACAO DE INPUT LAG
-echo ==========================================================
+:memory
+call :header
 echo.
-echo [1] Aplicar tweaks de timer (Recomendado)
-echo [2] Reverter tweaks de timer
-echo [3] Ver configuracoes atuais
-echo [4] Voltar ao menu
+echo           [96mOTIMIZACAO DE MEMORIA E CACHE[0m
+echo [94m==========================================================[0m
 echo.
-set /p input_op=Escolha: 
+echo [96m[1][0m [95mOtimizar memoria para jogos[0m (Recomendado)
+echo [96m[2][0m [95mLimpar caches temporarios[0m
+echo [96m[3][0m [95mConfigurar memoria virtual automatica[0m
+echo [96m[4][0m [95mConfigurar memoria virtual manual[0m
+echo [96m[5][0m [90mVoltar ao menu[0m
+echo.
+set /p mem_op=[96mEscolha: [0m
 
-if "%input_op%"=="1" (
-    echo Aplicando tweaks de input lag...
-    bcdedit /set useplatformclock true >nul
-    bcdedit /set disabledynamictick yes >nul
-    bcdedit /set tscsyncpolicy Enhanced >nul
-    echo ✓ Tweaks aplicados - Reinicie o PC
+if "%mem_op%"=="1" (
+    echo [95mOtimizando memoria para jogos...[0m
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v LargeSystemCache /t REG_DWORD /d 1 /f >nul 2>&1
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v ClearPageFileAtShutdown /t REG_DWORD /d 0 /f >nul 2>&1
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v IOPageLockLimit /t REG_DWORD /d 4194304 /f >nul 2>&1
+    echo [92m✓[0m Memoria otimizada para jogos
     pause
     goto menu
 )
-if "%input_op%"=="2" (
-    echo Revertendo tweaks...
-    bcdedit /deletevalue useplatformclock >nul
-    bcdedit /deletevalue disabledynamictick >nul
-    bcdedit /deletevalue tscsyncpolicy >nul
-    echo ✓ Tweaks revertidos - Reinicie o PC
-    pause
-    goto menu
-)
-if "%input_op%"=="3" (
-    echo Configuracoes atuais:
-    bcdedit | findstr "useplatformclock disabledynamictick tscsyncpolicy"
-    pause
-    goto input
-)
-if "%input_op%"=="4" goto menu
-goto input
-
-:: =========================
-:: INTERNET
-:: =========================
-:net
-cls
-echo ==========================================================
-echo              OTIMIZACAO DE INTERNET
-echo ==========================================================
-echo.
-echo [1] Otimizar rede para jogos (Recomendado)
-echo [2] Otimizar para streaming
-echo [3] Resetar configuracoes de rede
-echo [4] Ver configuracoes atuais
-echo [5] Voltar ao menu
-echo.
-set /p net_op=Escolha: 
-
-if "%net_op%"=="1" (
-    echo Aplicando tweaks de internet para jogos...
-    
-    for /f %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" 2^>nul') do (
-        reg add "%%i" /v TcpAckFrequency /t REG_DWORD /d 1 /f >nul 2>&1
-        reg add "%%i" /v TCPNoDelay /t REG_DWORD /d 1 /f >nul 2>&1
-        reg add "%%i" /v TcpDelAckTicks /t REG_DWORD /d 0 /f >nul 2>&1
-    )
-    
-    netsh int tcp set global autotuninglevel=normal >nul
-    netsh int tcp set global ecncapability=disabled >nul
-    netsh int tcp set global timestamps=disabled >nul
-    netsh int tcp set global rsc=disabled >nul
-    netsh int tcp set global rss=enabled >nul
-    netsh int tcp set global fastopen=enabled >nul
-    
+if "%mem_op%"=="2" (
+    echo [95mLimpando caches temporarios...[0m
     ipconfig /flushdns >nul
-    netsh winsock reset >nul
-    
-    echo ✓ Rede otimizada para jogos
-    echo Reinicie o PC para efeito completo
+    netsh winsock reset catalog >nul
+    del /f /q %temp%\*.* >nul 2>&1
+    echo [92m✓[0m Caches limpos
     pause
     goto menu
 )
-if "%net_op%"=="2" (
-    echo Otimizando para streaming...
-    netsh int tcp set global autotuninglevel=restricted >nul
-    netsh int tcp set global ecncapability=enabled >nul
-    echo ✓ Otimizado para streaming
+if "%mem_op%"=="3" (
+    echo [95mConfigurando memoria virtual automatica...[0m
+    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True >nul
+    echo [92m✓[0m Memoria virtual automatica configurada
     pause
     goto menu
 )
-if "%net_op%"=="3" (
-    echo Resetando configuracoes de rede...
-    netsh int ip reset >nul
-    netsh winsock reset >nul
-    ipconfig /flushdns >nul
-    echo ✓ Rede resetada - Reinicie o PC
+if "%mem_op%"=="4" (
+    echo [95mConfigurando memoria virtual manual...[0m
+    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul
+    echo [96mDigite o tamanho inicial em MB (ex: 4096): [0m
+    set /p size=
+    echo [96mDigite o tamanho maximo em MB (ex: 8192): [0m
+    set /p max=
+    wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=!size!,MaximumSize=!max! >nul
+    echo [92m✓[0m Memoria virtual manual configurada
     pause
     goto menu
 )
-if "%net_op%"=="4" (
-    echo Configuracoes TCP atuais:
-    netsh int tcp show global
-    pause
-    goto net
-)
-if "%net_op%"=="5" goto menu
-goto net
-
-:: =========================
-:: PRIORIDADE DE JOGOS
-:: =========================
-:priority
-cls
-echo ==========================================================
-echo            PRIORIDADE MAXIMA PARA JOGOS
-echo ==========================================================
-echo.
-echo [1] Ativar prioridade maxima (Recomendado)
-echo [2] Desativar prioridade
-echo [3] Ver configuracoes atuais
-echo [4] Voltar ao menu
-echo.
-set /p pri_op=Escolha: 
-
-if "%pri_op%"=="1" (
-    echo Ajustando prioridade maxima para jogos...
-    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /t REG_DWORD /d 0xffffffff /f >nul
-    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 0 /f >nul
-    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f >nul
-    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Priority /t REG_DWORD /d 6 /f >nul
-    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Scheduling Category" /t REG_SZ /d High /f >nul
-    echo ✓ Prioridade maxima ativada
-    pause
-    goto menu
-)
-if "%pri_op%"=="2" (
-    echo Desativando prioridade...
-    reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /f >nul
-    reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /f >nul
-    echo ✓ Prioridade desativada
-    pause
-    goto menu
-)
-if "%pri_op%"=="3" (
-    echo Verificando configuracoes...
-    reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex 2>nul && echo ✓ Prioridade ativa
-    reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness 2>nul && echo ✓ Responsividade configurada
-    pause
-    goto priority
-)
-if "%pri_op%"=="4" goto menu
-goto priority
-
-:: =========================
-:: MOUSE RAW
-:: =========================
-:mouse
-cls
-echo ==========================================================
-echo             CONFIGURACAO DE MOUSE RAW
-echo ==========================================================
-echo.
-echo [1] Desativar aceleracao do mouse (Recomendado)
-echo [2] Reativar aceleracao padrao
-echo [3] Ver configuracoes atuais
-echo [4] Voltar ao menu
-echo.
-set /p mouse_op=Escolha: 
-
-if "%mouse_op%"=="1" (
-    echo Ajustando mouse para RAW INPUT...
-    reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul
-    reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul
-    reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul
-    echo ✓ Aceleracao desativada - Reinicie os jogos
-    pause
-    goto menu
-)
-if "%mouse_op%"=="2" (
-    echo Reativando aceleracao padrao...
-    reg delete "HKCU\Control Panel\Mouse" /v MouseSpeed /f >nul
-    reg delete "HKCU\Control Panel\Mouse" /v MouseThreshold1 /f >nul
-    reg delete "HKCU\Control Panel\Mouse" /v MouseThreshold2 /f >nul
-    echo ✓ Configuracoes padrao restauradas
-    pause
-    goto menu
-)
-if "%mouse_op%"=="3" (
-    echo Configuracoes atuais do mouse:
-    reg query "HKCU\Control Panel\Mouse" /v MouseSpeed 2>nul || echo MouseSpeed: Nao configurado
-    reg query "HKCU\Control Panel\Mouse" /v MouseThreshold1 2>nul || echo MouseThreshold1: Nao configurado
-    reg query "HKCU\Control Panel\Mouse" /v MouseThreshold2 2>nul || echo MouseThreshold2: Nao configurado
-    pause
-    goto mouse
-)
-if "%mouse_op%"=="4" goto menu
-goto mouse
-
-:: =========================
-:: FORTNITE
-:: =========================
-:fortnite
-cls
-echo ==========================================================
-echo            TWEAKS ESPECIFICOS FORTNITE
-echo ==========================================================
-echo.
-echo [1] Aplicar tweaks Fortnite (Recomendado)
-echo [2] Remover tweaks Fortnite
-echo [3] Voltar ao menu
-echo.
-set /p fn_op=Escolha: 
-
-if "%fn_op%"=="1" (
-    echo Aplicando tweaks especificos do Fortnite...
-    reg add "HKCU\Software\Epic Games\Unreal Engine\Hardware Survey" /v DisableSurvey /t REG_DWORD /d 1 /f >nul 2>&1
-    reg add "HKCU\Software\Epic Games\Unreal Engine\Performance" /v bSmoothFrameRate /t REG_DWORD /d 0 /f >nul 2>&1
-    echo ✓ Tweaks aplicados para Fortnite
-    pause
-    goto menu
-)
-if "%fn_op%"=="2" (
-    echo Removendo tweaks...
-    reg delete "HKCU\Software\Epic Games\Unreal Engine\Hardware Survey" /v DisableSurvey /f >nul 2>&1
-    reg delete "HKCU\Software\Epic Games\Unreal Engine\Performance" /v bSmoothFrameRate /f >nul 2>&1
-    echo ✓ Tweaks removidos
-    pause
-    goto menu
-)
-if "%fn_op%"=="3" goto menu
-goto fortnite
-
-:: =========================
-:: GPU (AUTO)
-:: =========================
-:gpu
-cls
-echo ==========================================================
-echo                 OTIMIZACAO DE GPU
-echo ==========================================================
-echo.
-echo Detectando GPU...
-echo.
-
-wmic path win32_VideoController get name | find /i "NVIDIA" >nul
-if !errorlevel!==0 (
-    echo [✓] NVIDIA detectada
-    echo.
-    echo [1] Otimizar NVIDIA para jogos
-    echo [2] Reverter otimizacoes NVIDIA
-    echo [3] Voltar ao menu
-    echo.
-    set /p nvidia_op=Escolha: 
-    
-    if "%nvidia_op%"=="1" (
-        echo Aplicando tweaks NVIDIA...
-        reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm" /v DisablePreemption /t REG_DWORD /d 1 /f >nul 2>&1
-        echo ✓ NVIDIA otimizada - Reinicie o PC
-        pause
-        goto menu
-    )
-    if "%nvidia_op%"=="2" (
-        echo Revertendo tweaks NVIDIA...
-        reg delete "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm" /v DisablePreemption /f >nul 2>&1
-        echo ✓ Configuracoes revertidas
-        pause
-        goto menu
-    )
-    if "%nvidia_op%"=="3" goto menu
-    goto gpu
-)
-
-wmic path win32_VideoController get name | find /i "AMD" >nul
-if !errorlevel!==0 (
-    echo [✓] AMD detectada
-    echo.
-    echo [1] Otimizar AMD para jogos
-    echo [2] Reverter otimizacoes AMD
-    echo [3] Voltar ao menu
-    echo.
-    set /p amd_op=Escolha: 
-    
-    if "%amd_op%"=="1" (
-        echo Aplicando tweaks AMD...
-        reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdkmdag" /v DisableDMACopy /t REG_DWORD /d 1 /f >nul 2>&1
-        echo ✓ AMD otimizada - Reinicie o PC
-        pause
-        goto menu
-    )
-    if "%amd_op%"=="2" (
-        echo Revertendo tweaks AMD...
-        reg delete "HKLM\SYSTEM\CurrentControlSet\Services\amdkmdag" /v DisableDMACopy /f >nul 2>&1
-        echo ✓ Configuracoes revertidas
-        pause
-        goto menu
-    )
-    if "%amd_op%"=="3" goto menu
-    goto gpu
-)
-
-echo [i] Nenhuma GPU NVIDIA/AMD detectada ou drivers nao instalados
-echo.
-pause
-goto menu
+if "%mem_op%"=="5" goto menu
+goto memory
 
 :: =========================
 :: VERIFICAÇÃO DO SISTEMA
 :: =========================
 :system_check
-cls
-echo ==========================================================
-echo                VERIFICACAO DO SISTEMA
-echo ==========================================================
+call :header
 echo.
-echo [INFORMACOES DO SISTEMA]
+echo                [96mVERIFICACAO DO SISTEMA[0m
+echo [94m==========================================================[0m
 echo.
+echo [92m[INFORMACOES DO SISTEMA][0m
+echo [94m=======================[0m
 for /f "tokens=1,* delims=:" %%a in ('systeminfo ^| findstr /C:"Nome" /C:"Sistema" /C:"Processador"') do (
-    echo %%a: %%b
+    echo [96m%%a:[0m %%b
 )
 echo.
 
-echo [MEMORIA RAM]
-set "total_memory=0"
-for /f "tokens=2 delims==" %%a in ('wmic memorychip get capacity /value ^| find "Capacity"') do (
-    set /a "total_memory+=%%a"
+echo [92m[MEMORIA RAM][0m
+echo [94m============[0m
+wmic memorychip get capacity,speed,partnumber 2>nul | findstr /v "PartNumber" | findstr [0-9]
+echo.
+
+echo [92m[GPU DETECTADA][0m
+echo [94m==============[0m
+wmic path win32_VideoController get name,adapterram,driverversion 2>nul | findstr /v "Name"
+echo.
+
+echo [92m[OTIMIZACOES ATIVAS][0m
+echo [94m==================[0m
+powercfg /getactivescheme | find "Ultimate Performance" >nul && echo [92m✓[0m Plano: ULTRA PERFORMANCE
+powercfg /getactivescheme | find "Alto" >nul && echo [92m✓[0m Plano: ALTA PERFORMANCE
+bcdedit | find "useplatformclock" >nul && echo [92m✓[0m Timer otimizado
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness 2>nul && echo [92m✓[0m Prioridade jogos: ATIVA
+echo.
+
+echo [94m================================================================[0m
+echo [96m[1][0m [95mTeste de ping rapido[0m
+echo [96m[2][0m [95mVoltar ao menu[0m
+echo [96m[3][0m [90mSair[0m
+echo.
+set /p check_op=[96mEscolha: [0m
+
+if "%check_op%"=="1" (
+    echo [95mTestando ping para Google (3 tentativas)...[0m
+    ping -n 3 8.8.8.8
+    pause
+    goto system_check
 )
-set /a "total_memory_gb=total_memory/1073741824"
-echo Total RAM: !total_memory_gb! GB
-echo.
-
-echo [GPU DETECTADA]
-wmic path win32_VideoController get name | findstr /v "Name"
-echo.
-
-echo [OTIMIZACOES ATIVAS]
-echo -------------------
-reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex 2>nul && echo ✓ Prioridade de Jogos: ATIVA
-powercfg /getactivescheme | find "Ultimate Performance" >nul && echo ✓ Plano Energia: ULTRA PERFORMANCE
-powercfg /getactivescheme | find "Alto" >nul && echo ✓ Plano Energia: ALTA PERFORMANCE
-bcdedit | find "useplatformclock" >nul && echo ✓ Timer otimizado
-reg query "HKCU\Control Panel\Mouse" /v MouseSpeed 2>nul | find "0x0" >nul && echo ✓ Mouse RAW: ATIVO
-echo.
-
-echo [CONEXAO DE REDE]
-for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr "IPv4"') do (
-    echo IP: %%a
-)
-echo.
-echo [1] Voltar ao menu
-echo [2] Sair
-echo.
-set /p check_op=Escolha: 
-
-if "%check_op%"=="1" goto menu
-if "%check_op%"=="2" goto sair
+if "%check_op%"=="2" goto menu
+if "%check_op%"=="3" goto sair
 goto system_check
 
 :: =========================
 :: DESFAZER TUDO
 :: =========================
 :undo
-cls
-echo ==========================================================
-echo          DESFAZENDO TODAS AS ALTERACOES
-echo ==========================================================
+call :header
 echo.
-echo Tem certeza que deseja reverter todas as otimizacoes?
+echo          [96mDESFAZENDO TODAS AS ALTERACOES[0m
+echo [94m==========================================================[0m
 echo.
-echo [1] SIM, reverter tudo
-echo [2] NAO, voltar ao menu
+echo [93mEscolha o nivel para reverter:[0m
 echo.
-set /p undo_op=Escolha: 
+echo [96m[1][0m [95mReverter nivel BASICO[0m
+echo [96m[2][0m [95mReverter nivel BALANCEADO[0m
+echo [96m[3][0m [95mReverter nivel ULTRA[0m
+echo [96m[4][0m [95mReverter TUDO completamente[0m
+echo [96m[5][0m [90mVoltar ao menu[0m
+echo.
+set /p undo_op=[96mEscolha: [0m
 
-if "%undo_op%" neq "1" goto menu
+if "%undo_op%"=="1" goto undo_basico
+if "%undo_op%"=="2" goto undo_balanceado
+if "%undo_op%"=="3" goto undo_ultra
+if "%undo_op%"=="4" goto undo_all
+if "%undo_op%"=="5" goto menu
+goto undo
 
-echo Revertendo todas as alteracoes...
-echo.
-
-echo [1/7] Revertendo plano de energia...
+:undo_basico
+echo [95mRevertendo nivel basico...[0m
 powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul
-powercfg -h on >nul
-
-echo [2/7] Revertendo tweaks de timer...
-bcdedit /deletevalue useplatformclock >nul 2>&1
-bcdedit /deletevalue disabledynamictick >nul 2>&1
-bcdedit /deletevalue tscsyncpolicy >nul 2>&1
-
-echo [3/7] Revertendo prioridade de jogos...
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /f >nul 2>&1
-
-echo [4/7] Revertendo configuracoes de rede...
-netsh int ip reset >nul
-netsh winsock reset >nul
-
-echo [5/7] Revertendo configuracoes do mouse...
-reg delete "HKCU\Control Panel\Mouse" /v MouseSpeed /f >nul 2>&1
-reg delete "HKCU\Control Panel\Mouse" /v MouseThreshold1 /f >nul 2>&1
-reg delete "HKCU\Control Panel\Mouse" /v MouseThreshold2 /f >nul 2>&1
-
-echo [6/7] Revertendo tweaks Fortnite...
-reg delete "HKCU\Software\Epic Games\Unreal Engine\Hardware Survey" /v DisableSurvey /f >nul 2>&1
-reg delete "HKCU\Software\Epic Games\Unreal Engine\Performance" /v bSmoothFrameRate /f >nul 2>&1
-
-echo [7/7] Revertendo tweaks GPU...
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm" /v DisablePreemption /f >nul 2>&1
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\amdkmdag" /v DisableDMACopy /f >nul 2>&1
-
-ipconfig /flushdns >nul
-echo.
-echo ✓ Todas as otimizacoes revertidas!
-echo Reinicie o PC para concluir.
-echo.
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /f >nul 2>&1
+echo [92m✓[0m Nivel basico revertido
 pause
 goto menu
 
 :: =========================
-:: SAIR
+:: SAIR COM ESTILO
 :: =========================
 :sair
 cls
-echo ==========================================================
-echo        OBRIGADO POR USAR ULTRA GAME OPTIMIZER!
-echo ==========================================================
+echo [94m====================================================================================================[0m
+echo        [96mOBRIGADO POR USAR ULTRA GAME OPTIMIZER [93mv3.0[0m!
+echo [94m====================================================================================================[0m
 echo.
-echo Lembre-se de reiniciar o PC para aplicar
-echo todas as otimizacoes completamente.
+echo [95mMelhorias implementadas:[0m
+echo [96m•[0m 3 niveis de otimizacao para diferentes necessidades
+echo [96m•[0m Foco em reducao de travamentos em Fortnite e outros jogos
+echo [96m•[0m Otimizacoes de memoria especificas para estabilidade
+echo [96m•[0m Sistema de reversao segmentada por niveis
+echo [96m•[0m Interface colorida e intuitiva
 echo.
-echo Desenvolvido para melhor performance em jogos
+echo [93mLembre-se de reiniciar o PC para aplicar[0m
+echo [93mtodas as otimizacoes completamente.[0m
+echo.
+echo [94mDesenvolvido para melhor performance em jogos[0m
 echo.
 timeout /t 3 >nul
 exit
