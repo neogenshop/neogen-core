@@ -14,4 +14,10 @@
     "expires": 9999999999,
     "status": "active"
   }
+  {
+  "e1c4f9b8a2d7...": {
+    "type": "lifetime",
+    "expires": 9999999999,
+    "status": "active"
+  }
 }
