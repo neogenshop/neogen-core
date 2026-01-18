@@ -1,0 +1,17 @@
+{
+  "a3f1c9d7e6b0a8f9c6c2e1b4d9f7": {
+    "type": "weekly",
+    "expires": 1736985600,
+    "status": "active"
+  },
+  "9b7e2a4f8d1c3e6a5f9b2d7e4c1a": {
+    "type": "monthly",
+    "expires": 1740000000,
+    "status": "active"
+  },
+  "ffffffffffffffffffffffffffffffff": {
+    "type": "lifetime",
+    "expires": 9999999999,
+    "status": "active"
+  }
+}
